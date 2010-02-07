@@ -126,7 +126,7 @@ Date:   Mon Dec 1 21:09:44 2008 +0100
     Signed-off-by: Julien Cristau <jcristau@debian.org>
 
 commit 83e567f427f68dc4ae2de796a1184748bbe0238e
-Merge: 908de8f... 00f2e30...
+Merge: 908de8f 00f2e30
 Author: Julien Cristau <jcristau@debian.org>
 Date:   Mon Dec 1 20:59:39 2008 +0100
 
@@ -248,7 +248,7 @@ Date:   Thu Dec 6 16:38:42 2007 -0500
     Replace static ChangeLog with dist-hook to generate from git log
 
 commit e56fa06624dc240dbe8d3e127cc3b65da580fe6e
-Merge: 27b91d1... 0294912...
+Merge: 27b91d1 0294912
 Author: James Cloos <cloos@jhcloos.com>
 Date:   Sun Nov 11 10:27:35 2007 -0500
 
@@ -300,7 +300,7 @@ Date:   Thu Feb 15 16:56:11 2007 -0800
     Must pass size information in SetCrtcGamma request.
 
 commit 9c4fea702a0382689898fc14cbdab456fb18c403
-Merge: c85237a... 382b7a3...
+Merge: c85237a 382b7a3
 Author: Keith Packard <keithp@neko.keithp.com>
 Date:   Wed Jan 31 14:24:57 2007 -0800
 
@@ -351,7 +351,7 @@ Date:   Sat Dec 30 13:11:10 2006 -0800
     structure to the XRRCrtcInfo being returned, leaving the value uninitialized.
 
 commit bc75a92cac23dad4a661a13e6af121f6072cecc8
-Merge: 7fcdcbb... 370fa28...
+Merge: 7fcdcbb 370fa28
 Author: Dave Airlie <airlied@linux.ie>
 Date:   Sat Dec 2 11:27:36 2006 +1100
 
@@ -366,7 +366,7 @@ Date:   Thu Nov 30 21:56:59 2006 -0800
     They build. More testing seems indicated.
 
 commit 7fcdcbb0f9c4736bd678be7f9bf76d472293233f
-Merge: 875867f... 0dba1be...
+Merge: 875867f 0dba1be
 Author: Eric Anholt <eric@anholt.net>
 Date:   Mon Nov 27 15:41:03 2006 -0800
 
