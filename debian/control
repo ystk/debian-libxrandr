@@ -2,9 +2,9 @@ Source: libxrandr
 Section: x11
 Priority: optional
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
-Uploaders: David Nusinow <dnusinow@debian.org>
+Uploaders: Cyril Brulebois <kibi@debian.org>
 Build-Depends:
- debhelper (>= 5.0.0),
+ debhelper (>= 8.1.3),
  libx11-dev (>= 1:0.99.2),
  libxext-dev (>= 1:0.99.1),
  x11proto-randr-dev (>= 1.3),
@@ -14,8 +14,8 @@ Build-Depends:
  quilt,
  automake,
  libtool,
- xutils-dev
-Standards-Version: 3.8.3
+ xutils-dev (>= 1:7.5+4),
+Standards-Version: 3.9.2
 Vcs-Git: git://git.debian.org/git/pkg-xorg/lib/libxrandr
 Vcs-Browser: http://git.debian.org/?p=pkg-xorg/lib/libxrandr.git
 
@@ -23,6 +23,8 @@ Package: libxrandr2
 Section: libs
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
+Pre-Depends: ${misc:Pre-Depends}
+Multi-Arch: same
 Description: X11 RandR extension library
  libXrandr provides an X Window System client interface to the RandR
  extension to the X protocol.
@@ -32,8 +34,6 @@ Description: X11 RandR extension library
  .
  More information about X.Org can be found at:
  <URL:http://www.X.org>
- <URL:http://xorg.freedesktop.org>
- <URL:http://lists.freedesktop.org/mailman/listinfo/xorg>
  .
  This module can be found at
  git://anongit.freedesktop.org/git/xorg/lib/libXrandr
@@ -43,6 +43,7 @@ Section: debug
 Priority: extra
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, libxrandr2 (= ${binary:Version})
+Multi-Arch: same
 Description: X11 RandR extension library (debug package)
  libXrandr provides an X Window System client interface to the RandR
  extension to the X protocol.
@@ -55,8 +56,6 @@ Description: X11 RandR extension library (debug package)
  .
  More information about X.Org can be found at:
  <URL:http://www.X.org>
- <URL:http://xorg.freedesktop.org>
- <URL:http://lists.freedesktop.org/mailman/listinfo/xorg>
  .
  This module can be found at
  git://anongit.freedesktop.org/git/xorg/lib/libXrandr
@@ -77,8 +76,6 @@ Description: X11 RandR extension library (development headers)
  .
  More information about X.Org can be found at:
  <URL:http://www.X.org>
- <URL:http://xorg.freedesktop.org>
- <URL:http://lists.freedesktop.org/mailman/listinfo/xorg>
  .
  This module can be found at
  git://anongit.freedesktop.org/git/xorg/lib/libXrandr

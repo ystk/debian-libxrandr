@@ -25,8 +25,6 @@
 #ifndef _XRANDRINT_H_
 #define _XRANDRINT_H_
 
-#define NEED_EVENTS
-#define NEED_REPLIES
 #include <X11/Xlibint.h>
 #include <X11/Xutil.h>
 #include <X11/extensions/Xext.h>
@@ -44,6 +42,19 @@ extern char XRRExtensionName[];
 
 XExtDisplayInfo *XRRFindDisplay (Display *dpy);
 
+#ifndef HAVE__XEATDATAWORDS
+#include <X11/Xmd.h>  /* for LONG64 on 64-bit platforms */
+#include <limits.h>
+
+static inline void _XEatDataWords(Display *dpy, unsigned long n)
+{
+# ifndef LONG64
+    if (n >= (ULONG_MAX >> 2))
+        _XIOError(dpy);
+# endif
+    _XEatData (dpy, n << 2);
+}
+#endif
 
 /* deliberately opaque internal data structure; can be extended, 
    but not reordered */

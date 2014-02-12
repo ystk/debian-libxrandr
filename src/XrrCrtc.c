@@ -74,7 +74,7 @@ XRRGetCrtcInfo (Display *dpy, XRRScreenResources *resources, RRCrtc crtc)
 
     xci = (XRRCrtcInfo *) Xmalloc(rbytes);
     if (xci == NULL) {
-	_XEatData (dpy, (unsigned long) nbytes);
+	_XEatDataWords (dpy, rep.length);
 	UnlockDisplay (dpy);
 	SyncHandle ();
 	return NULL;
@@ -167,7 +167,7 @@ XRRGetCrtcGammaSize (Display *dpy, RRCrtc crtc)
     req->crtc = crtc;
 
     if (!_XReply (dpy, (xReply *) &rep, 0, xFalse))
-	rep.status = RRSetConfigFailed;
+	rep.size = 0;
     UnlockDisplay (dpy);
     SyncHandle ();
     return rep.size;
@@ -179,7 +179,7 @@ XRRGetCrtcGamma (Display *dpy, RRCrtc crtc)
     XExtDisplayInfo	    *info = XRRFindDisplay(dpy);
     xRRGetCrtcGammaReply    rep;
     xRRGetCrtcGammaReq	    *req;
-    XRRCrtcGamma	    *crtc_gamma;
+    XRRCrtcGamma	    *crtc_gamma = NULL;
     long    		    nbytes;
     long    		    nbytesRead;
 
@@ -192,7 +192,7 @@ XRRGetCrtcGamma (Display *dpy, RRCrtc crtc)
     req->crtc = crtc;
 
     if (!_XReply (dpy, (xReply *) &rep, 0, xFalse))
-	rep.status = RRSetConfigFailed;
+	goto out;
 
     nbytes = (long) rep.length << 2;
     
@@ -203,10 +203,8 @@ XRRGetCrtcGamma (Display *dpy, RRCrtc crtc)
     
     if (!crtc_gamma)
     {
-	_XEatData (dpy, (unsigned long) nbytes);
-	UnlockDisplay (dpy);
-	SyncHandle ();
-	return NULL;
+	_XEatDataWords (dpy, rep.length);
+	goto out;
     }
     _XRead16 (dpy, crtc_gamma->red, rep.size * 2);
     _XRead16 (dpy, crtc_gamma->green, rep.size * 2);
@@ -214,7 +212,8 @@ XRRGetCrtcGamma (Display *dpy, RRCrtc crtc)
     
     if (nbytes > nbytesRead)
 	_XEatData (dpy, (unsigned long) (nbytes - nbytesRead));
-    
+
+out:
     UnlockDisplay (dpy);
     SyncHandle ();
     return crtc_gamma;
@@ -398,7 +397,7 @@ XRRGetCrtcTransform (Display	*dpy,
 	    int extraBytes = rep.length * 4 - CrtcTransformExtra;
 	    extra = Xmalloc (extraBytes);
 	    if (!extra) {
-		_XEatData (dpy, extraBytes);
+		_XEatDataWords (dpy, rep.length - (CrtcTransformExtra >> 2));
 		UnlockDisplay (dpy);
 		SyncHandle ();
 		return False;

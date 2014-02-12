@@ -1,3 +1,50 @@
+libxrandr (2:1.3.2-2+deb7u1) wheezy-security; urgency=high
+
+  * integer overflows calculating memory needs for replies [CVE-2013-1986]
+
+ -- Julien Cristau <jcristau@debian.org>  Tue, 14 May 2013 18:59:45 +0200
+
+libxrandr (2:1.3.2-2) unstable; urgency=low
+
+  * Brown paper bag upload:
+    - Merge back origin/debian-unstable, fixing the loss of the
+      2:1.3.1-2 upload (including multiarch changes).
+
+ -- Cyril Brulebois <kibi@debian.org>  Thu, 30 Jun 2011 12:57:22 +0200
+
+libxrandr (2:1.3.2-1) unstable; urgency=low
+
+  * New upstream release:
+    - Documentation updates.
+  * Bump Standards-Version to 3.9.2 (no changes).
+  * Update Uploaders list. Thanks, David!
+
+ -- Cyril Brulebois <kibi@debian.org>  Thu, 30 Jun 2011 12:42:11 +0200
+
+libxrandr (2:1.3.1-2) unstable; urgency=low
+
+  * Team upload.
+
+  [ Steve Langasek ]
+  * Build for multiarch.
+
+  [ Julien Cristau ]
+  * Remove David Nusinow from Uploaders.
+  * Bump Standards-Version to 3.9.2.
+
+ -- Julien Cristau <jcristau@debian.org>  Sat, 11 Jun 2011 23:12:54 +0200
+
+libxrandr (2:1.3.1-1) unstable; urgency=low
+
+  * New upstream release.
+  * Bump xutils-dev build-dep for new macros.
+  * Update debian/copyright from upstream COPYING.
+  * Switch from --list-missing to --fail-missing for additional safety.
+  * Exclude libXrandr.la from dh_install accordingly.
+  * Add myself to Uploaders.
+
+ -- Cyril Brulebois <kibi@debian.org>  Fri, 19 Nov 2010 11:43:13 +0100
+
 libxrandr (2:1.3.0-3) unstable; urgency=low
 
   [ Timo Aaltonen ]
