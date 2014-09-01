@@ -34,21 +34,21 @@
 #include <limits.h>
 
 Atom *
-XRRListOutputProperties (Display *dpy, RROutput output, int *nprop)
+XRRListProviderProperties (Display *dpy, RRProvider provider, int *nprop)
 {
     XExtDisplayInfo		*info = XRRFindDisplay(dpy);
-    xRRListOutputPropertiesReply rep;
-    xRRListOutputPropertiesReq	*req;
+    xRRListProviderPropertiesReply rep;
+    xRRListProviderPropertiesReq	*req;
     int				nbytes, rbytes;
     Atom			*props = NULL;
 
     RRCheckExtension (dpy, info, NULL);
 
     LockDisplay (dpy);
-    GetReq (RRListOutputProperties, req);
+    GetReq (RRListProviderProperties, req);
     req->reqType = info->codes->major_opcode;
-    req->randrReqType = X_RRListOutputProperties;
-    req->output = output;
+    req->randrReqType = X_RRListProviderProperties;
+    req->provider = provider;
 
     if (!_XReply (dpy, (xReply *) &rep, 0, xFalse)) {
 	UnlockDisplay (dpy);
@@ -80,21 +80,21 @@ XRRListOutputProperties (Display *dpy, RROutput output, int *nprop)
 }
 
 XRRPropertyInfo *
-XRRQueryOutputProperty (Display *dpy, RROutput output, Atom property)
+XRRQueryProviderProperty (Display *dpy, RRProvider provider, Atom property)
 {
     XExtDisplayInfo		*info = XRRFindDisplay(dpy);
-    xRRQueryOutputPropertyReply rep;
-    xRRQueryOutputPropertyReq	*req;
+    xRRQueryProviderPropertyReply rep;
+    xRRQueryProviderPropertyReq	*req;
     unsigned int		rbytes, nbytes;
     XRRPropertyInfo		*prop_info;
 
     RRCheckExtension (dpy, info, NULL);
 
     LockDisplay (dpy);
-    GetReq (RRQueryOutputProperty, req);
+    GetReq (RRQueryProviderProperty, req);
     req->reqType = info->codes->major_opcode;
-    req->randrReqType = X_RRQueryOutputProperty;
-    req->output = output;
+    req->randrReqType = X_RRQueryProviderProperty;
+    req->provider = provider;
     req->property = property;
 
     if (!_XReply (dpy, (xReply *) &rep, 0, xFalse)) {
@@ -112,7 +112,7 @@ XRRQueryOutputProperty (Display *dpy, RROutput output, Atom property)
         prop_info = NULL;
 
     if (prop_info == NULL) {
-	_XEatDataWords(dpy, rep.length);
+	_XEatDataWords (dpy, rep.length);
 	UnlockDisplay (dpy);
 	SyncHandle ();
 	return NULL;
@@ -135,21 +135,21 @@ XRRQueryOutputProperty (Display *dpy, RROutput output, Atom property)
 }
 
 void
-XRRConfigureOutputProperty (Display *dpy, RROutput output, Atom property,
+XRRConfigureProviderProperty (Display *dpy, RRProvider provider, Atom property,
 			    Bool pending, Bool range, int num_values,
 			    long *values)
 {
     XExtDisplayInfo		    *info = XRRFindDisplay(dpy);
-    xRRConfigureOutputPropertyReq   *req;
+    xRRConfigureProviderPropertyReq   *req;
     long len;
 
     RRSimpleCheckExtension (dpy, info);
 
     LockDisplay(dpy);
-    GetReq (RRConfigureOutputProperty, req);
+    GetReq (RRConfigureProviderProperty, req);
     req->reqType = info->codes->major_opcode;
-    req->randrReqType = X_RRConfigureOutputProperty;
-    req->output = output;
+    req->randrReqType = X_RRConfigureProviderProperty;
+    req->provider = provider;
     req->property = property;
     req->pending = pending;
     req->range = range;
@@ -164,24 +164,24 @@ XRRConfigureOutputProperty (Display *dpy, RROutput output, Atom property,
     UnlockDisplay(dpy);
     SyncHandle();
 }
-
+			
 void
-XRRChangeOutputProperty (Display *dpy, RROutput output,
+XRRChangeProviderProperty (Display *dpy, RRProvider provider,
 			 Atom property, Atom type,
 			 int format, int mode,
 			 _Xconst unsigned char *data, int nelements)
 {
     XExtDisplayInfo		*info = XRRFindDisplay(dpy);
-    xRRChangeOutputPropertyReq	*req;
+    xRRChangeProviderPropertyReq	*req;
     long len;
 
     RRSimpleCheckExtension (dpy, info);
 
     LockDisplay(dpy);
-    GetReq (RRChangeOutputProperty, req);
+    GetReq (RRChangeProviderProperty, req);
     req->reqType = info->codes->major_opcode;
-    req->randrReqType = X_RRChangeOutputProperty;
-    req->output = output;
+    req->randrReqType = X_RRChangeProviderProperty;
+    req->provider = provider;
     req->property = property;
     req->type = type;
     req->mode = mode;
@@ -229,34 +229,34 @@ XRRChangeOutputProperty (Display *dpy, RROutput output,
 }
 
 void
-XRRDeleteOutputProperty (Display *dpy, RROutput output, Atom property)
+XRRDeleteProviderProperty (Display *dpy, RRProvider provider, Atom property)
 {
     XExtDisplayInfo		*info = XRRFindDisplay(dpy);
-    xRRDeleteOutputPropertyReq *req;
+    xRRDeleteProviderPropertyReq *req;
 
     RRSimpleCheckExtension (dpy, info);
 
     LockDisplay(dpy);
-    GetReq(RRDeleteOutputProperty, req);
+    GetReq(RRDeleteProviderProperty, req);
     req->reqType = info->codes->major_opcode;
-    req->randrReqType = X_RRDeleteOutputProperty;
-    req->output = output;
+    req->randrReqType = X_RRDeleteProviderProperty;
+    req->provider = provider;
     req->property = property;
     UnlockDisplay(dpy);
     SyncHandle();
 }
 
 int
-XRRGetOutputProperty (Display *dpy, RROutput output,
+XRRGetProviderProperty (Display *dpy, RRProvider provider,
 		      Atom property, long offset, long length,
-		      Bool delete, Bool pending, Atom req_type,
+		      Bool delete, Bool pending, Atom req_type, 
 		      Atom *actual_type, int *actual_format,
 		      unsigned long *nitems, unsigned long *bytes_after,
 		      unsigned char **prop)
 {
     XExtDisplayInfo		*info = XRRFindDisplay(dpy);
-    xRRGetOutputPropertyReply	rep;
-    xRRGetOutputPropertyReq	*req;
+    xRRGetProviderPropertyReply	rep;
+    xRRGetProviderPropertyReq	*req;
     unsigned long		nbytes, rbytes;
 
     /* Always initialize return values, in case callers fail to initialize
@@ -269,10 +269,10 @@ XRRGetOutputProperty (Display *dpy, RROutput output,
     RRCheckExtension (dpy, info, 1);
 
     LockDisplay (dpy);
-    GetReq (RRGetOutputProperty, req);
+    GetReq (RRGetProviderProperty, req);
     req->reqType = info->codes->major_opcode;
-    req->randrReqType = X_RRGetOutputProperty;
-    req->output = output;
+    req->randrReqType = X_RRGetProviderProperty;
+    req->provider = provider;
     req->property = property;
     req->type = req_type;
     req->longOffset = offset;
