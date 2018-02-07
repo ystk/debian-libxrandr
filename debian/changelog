@@ -1,3 +1,10 @@
+libxrandr (2:1.4.2-1+deb8u1) jessie; urgency=medium
+
+  * Avoid out of boundary accesses on illegal responses.  Addresses
+    CVE-2016-7947 and CVE-2016-7948.
+
+ -- Julien Cristau <jcristau@debian.org>  Sat, 09 Sep 2017 13:45:59 +0200
+
 libxrandr (2:1.4.2-1) sid; urgency=medium
 
   * New upstream release.
